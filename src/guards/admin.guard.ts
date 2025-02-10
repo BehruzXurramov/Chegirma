@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class UserGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
     constructor(private readonly jwtService: JwtService) { }
 
     canActivate(
@@ -13,7 +13,7 @@ export class UserGuard implements CanActivate {
         const authHeader = req.headers.authorization;
         
         if (!authHeader) {
-            throw new UnauthorizedException("Unauthorizard user")
+            throw new UnauthorizedException("Unauthorizard admin")
         }
         const bearer = authHeader.split(" ")[0]
         const token = authHeader.split(" ")[1]
@@ -21,7 +21,7 @@ export class UserGuard implements CanActivate {
 
 
         if (bearer != 'Bearer' || !token) {
-            throw new UnauthorizedException("Unauthorizard user")
+            throw new UnauthorizedException("Unauthorizard admin")
         }
         async function verify(token: string, jwtService: JwtService) {
             let payload: any;
@@ -31,12 +31,17 @@ export class UserGuard implements CanActivate {
                 });
             } catch (error) {
                 console.log(error);
-                throw new UnauthorizedException("Unauthorizard user")
+                throw new UnauthorizedException("Unauthorizard admin")
             }
             if(!payload){
-                throw new UnauthorizedException("Unauthorizard user")
+                throw new UnauthorizedException("Unauthorizard admin")
             }
-            req.user = payload
+            if(payload.role != "admin"){
+                throw new UnauthorizedException("Unauthorizard admin")
+            }
+        
+            req.admin = payload
+
             return true;
         }
         return verify(token, this.jwtService)
