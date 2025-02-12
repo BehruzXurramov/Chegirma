@@ -12,6 +12,12 @@ import { SocialLinkModule } from "./social_link/social_link.module";
 import { CategoryModule } from "./category/category.module";
 import { DiscountTypeModule } from "./discount_type/discount_type.module";
 import { RegionModule } from "./region/region.module";
+import { OtpModule } from "./otp/otp.module";
+import { FavoritesModule } from "./favorites/favorites.module";
+import { ReviewsModule } from "./reviews/reviews.module";
+import { DiscountModule } from "./discount/discount.module";
+import { StoreModule } from "./store/store.module";
+import { StoreSubscribeModule } from "./store_subscribe/store_subscribe.module";
 
 @Module({
   imports: [
@@ -45,6 +51,12 @@ import { RegionModule } from "./region/region.module";
     CategoryModule,
     DiscountTypeModule,
     RegionModule,
+    OtpModule,
+    FavoritesModule,
+    ReviewsModule,
+    DiscountModule,
+    StoreModule,
+    StoreSubscribeModule,
   ],
   controllers: [],
   providers: [],

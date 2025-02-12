@@ -14,13 +14,17 @@ import * as uuid from "uuid";
 import { MailService } from "../mail/mail.service";
 import { FindUserDto } from "./dto/find-user.dto";
 import { Op } from "sequelize";
+import { BotService } from "../bot/bot.service";
+import { PhoneUserDto } from "./dto/phone-user.dto copy";
+import otpGenerator from "otp-generator";
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User) private readonly userModel: typeof User,
     private readonly jwtService: JwtService,
-    private readonly mailService: MailService
+    private readonly mailService: MailService,
+    private readonly botService: BotService
   ) {}
 
   async getTokens(user: User) {
